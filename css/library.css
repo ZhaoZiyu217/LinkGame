@@ -1,0 +1,538 @@
+/**
+ * library.css — 知识库模块专属样式
+ * 首页入口、教学图库、个人收藏、错题题库
+ * 版本：v1.0.0
+ */
+
+/* ==================== 根容器 ==================== */
+.library-root {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.library-view {
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==================== ① 知识库首页（三卡片入口） ==================== */
+
+.library-hub-header {
+  text-align: center;
+  padding: 40px 0 24px;
+}
+.library-hub-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+.library-hub-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.library-hub-cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding: 20px 0 40px;
+}
+
+.library-hub-card {
+  flex: 1;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.library-hub-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+}
+
+.library-hub-card__icon {
+  font-size: 52px;
+  margin-bottom: 12px;
+}
+.library-hub-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2C1A20;
+  margin-bottom: 6px;
+}
+.library-hub-card__desc {
+  font-size: 13px;
+  color: #7A6A72;
+  line-height: 1.6;
+}
+.library-hub-card__count {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 2px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #F9F2F4;
+  color: #7B2D3B;
+}
+
+/* ==================== ② 教学图库子页面（左右布局） ==================== */
+
+.library-gallery {
+  display: flex;
+  gap: 20px;
+  min-height: calc(100vh - 160px);
+}
+
+/* 左侧导航面板 */
+.library-gallery__sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 16px;
+  align-self: flex-start;
+  position: sticky;
+  top: 80px;
+}
+
+.library-gallery__sidebar-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* 搜索框 */
+.library-search-box {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.library-search-box::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.library-search-box:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 分期筛选列表 */
+.library-stage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.library-stage-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.library-stage-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.library-stage-item--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 600;
+  border-left-color: #D4A843;
+}
+.library-stage-item__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.library-stage-item__count {
+  margin-left: auto;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* 右侧图片网格 */
+.library-gallery__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.library-gallery__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.library-gallery__result-count {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.library-image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+/* 单张图卡片 */
+.library-image-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.library-image-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.library-image-card__preview {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  position: relative;
+}
+/* 六分期底色 */
+.library-image-card__preview--stage_1  { background: linear-gradient(135deg, #FF8A80, #FF5252); }
+.library-image-card__preview--stage_2  { background: linear-gradient(135deg, #FFB74D, #FF9800); }
+.library-image-card__preview--stage_3  { background: linear-gradient(135deg, #FFF176, #FFEB3B); }
+.library-image-card__preview--stage_4  { background: linear-gradient(135deg, #81C784, #4CAF50); }
+.library-image-card__preview--unstage  { background: linear-gradient(135deg, #90A4AE, #607D8B); }
+.library-image-card__preview--dti      { background: linear-gradient(135deg, #CE93D8, #9C27B0); }
+
+.library-image-card__fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform 0.2s;
+  color: #A8989E;
+}
+.library-image-card__fav-btn:hover {
+  transform: scale(1.15);
+}
+.library-image-card__fav-btn--active {
+  color: #D4A843;
+}
+
+.library-image-card__info {
+  padding: 10px 12px;
+}
+.library-image-card__stage {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7B2D3B;
+}
+.library-image-card__desc {
+  font-size: 11px;
+  color: #7A6A72;
+  margin-top: 3px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.4;
+}
+
+/* 空状态 — 图片网格内 */
+.library-empty-full {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.library-empty-full__icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+.library-empty-full__text {
+  font-size: 14px;
+}
+
+/* ==================== ③ 个人收藏子页面 ==================== */
+
+.library-fav-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.library-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.library-filter-select {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+.library-filter-select option {
+  background: #5A1B28;
+  color: #fff;
+}
+
+/* 批量操作栏 */
+.library-batch-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(212, 168, 67, 0.15);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  color: #fff;
+  font-size: 13px;
+}
+
+/* 收藏卡片选中态 */
+.library-image-card--selected {
+  outline: 3px solid #D4A843;
+  outline-offset: 2px;
+}
+
+/* ==================== ④ 错题题库子页面 ==================== */
+
+.library-mistakes-summary {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.library-mistakes-stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  color: #fff;
+}
+.library-mistakes-stat__value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #F5D78C;
+}
+.library-mistakes-stat__label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.library-mistakes-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* 错题聚合卡片 */
+.library-mistakes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.library-mistake-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+.library-mistake-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.library-mistake-item__stage-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.library-mistake-item__info {
+  flex: 1;
+  min-width: 0;
+}
+.library-mistake-item__stage {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2C1A20;
+}
+.library-mistake-item__desc {
+  font-size: 12px;
+  color: #7A6A72;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.library-mistake-item__meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+.library-mistake-item__source {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.library-mistake-item__source--practice { background: #E8F5E9; color: #2D8B4E; }
+.library-mistake-item__source--exam     { background: #FFEBEE; color: #C0392B; }
+.library-mistake-item__source--match    { background: #E3F2FD; color: #3A6B8C; }
+.library-mistake-item__count {
+  font-size: 12px;
+  color: #A8989E;
+  margin-top: 3px;
+}
+
+/* ==================== ⑤ 分期详情弹窗（知识库） ==================== */
+
+.library-detail-modal {
+  max-width: 560px;
+}
+
+.library-detail__stage-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.library-detail__stage-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.library-detail__section {
+  margin-bottom: 12px;
+}
+.library-detail__section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7B2D3B;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #F5F0F2;
+}
+.library-detail__section p {
+  font-size: 13px;
+  color: #5A4A52;
+  line-height: 1.7;
+}
+.library-detail__section ul {
+  list-style: disc;
+  padding-left: 18px;
+}
+.library-detail__section li {
+  font-size: 13px;
+  color: #5A4A52;
+  padding: 3px 0;
+  line-height: 1.6;
+}
+
+/* ==================== ⑥ 专项练习弹窗 ==================== */
+
+.library-practice-gen-modal {
+  max-width: 400px;
+  text-align: center;
+}
+.library-practice-gen__icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+/* ==================== ⑦ 分页 ==================== */
+.library-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0;
+}
+.library-pagination__btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.library-pagination__btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.library-pagination__btn--active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #D4A843;
+  color: #F5D78C;
+  font-weight: 600;
+}
+.library-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

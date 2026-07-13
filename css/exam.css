@@ -1,0 +1,474 @@
+/**
+ * exam.css — 考试模块专属样式
+ * 规则首页、限时棋盘、解析报告结算页
+ * 版本：v1.0.0
+ */
+
+/* ==================== 考试根容器 ==================== */
+.exam-root {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.exam-view {
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==================== ① 考试规则首页 ==================== */
+
+.exam-rules {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.exam-rules__header {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+.exam-rules__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+.exam-rules__subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 规则卡片 */
+.exam-rules-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.exam-rules-card__section {
+  padding: 20px 28px;
+  border-bottom: 1px solid #F5F0F2;
+}
+.exam-rules-card__section:last-child {
+  border-bottom: none;
+}
+
+.exam-rules-card__section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5A1B28;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 资格校验状态行 */
+.exam-qualify-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #F9F2F4;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.exam-qualify-row__label {
+  font-size: 13px;
+  color: #5A4A52;
+}
+.exam-qualify-row__value {
+  font-size: 14px;
+  font-weight: 600;
+}
+.exam-qualify-row__value--pass { color: #2D8B4E; }
+.exam-qualify-row__value--fail { color: #C0392B; }
+
+/* 规则列表 */
+.exam-rules-list {
+  list-style: none;
+  padding: 0;
+}
+.exam-rules-list li {
+  position: relative;
+  padding: 7px 0 7px 22px;
+  font-size: 13px;
+  color: #5A4A52;
+  line-height: 1.6;
+}
+.exam-rules-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7B2D3B;
+}
+
+/* 底部操作区 */
+.exam-rules__actions {
+  text-align: center;
+  padding: 8px 0 40px;
+}
+
+/* ==================== ② 考试棋盘 ==================== */
+
+.exam-board-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(192, 57, 43, 0.2);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.exam-board-info-bar__left,
+.exam-board-info-bar__center,
+.exam-board-info-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 倒计时 — 紧急态红色闪烁 */
+.exam-countdown {
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.exam-countdown--urgent {
+  color: #FF5252;
+  animation: examPulse 1s ease-in-out infinite;
+}
+.exam-countdown--normal {
+  color: #F5D78C;
+}
+
+@keyframes examPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+/* 套题进度指示器 */
+.exam-set-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.exam-set-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.3s;
+}
+.exam-set-dot--current {
+  background: #F5D78C;
+  box-shadow: 0 0 8px rgba(245, 215, 140, 0.5);
+}
+.exam-set-dot--done {
+  background: #2D8B4E;
+}
+
+/* 套题过渡提示 */
+.exam-set-transition {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 8, 16, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2500;
+  animation: fadeIn 0.3s ease;
+}
+.exam-set-transition__card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 50px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+.exam-set-transition__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #5A1B28;
+  margin-bottom: 12px;
+}
+.exam-set-transition__stat {
+  font-size: 16px;
+  color: #7A6A72;
+  margin-bottom: 6px;
+}
+.exam-set-transition__stat strong {
+  color: #7B2D3B;
+}
+
+/* 考试棋盘网格 — 6列 */
+.exam-board-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+/* 考试卡片 — 偏小，更紧凑 */
+.exam-card {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: transform 0.15s ease;
+}
+.exam-card:hover {
+  transform: scale(1.04);
+}
+
+.exam-card__inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: box-shadow 0.2s, opacity 0.4s, transform 0.3s;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+/* 考试卡片分期底色（复用练习配色） */
+.exam-card__inner--stage_1  { background: linear-gradient(135deg, #FF8A80, #FF5252); }
+.exam-card__inner--stage_2  { background: linear-gradient(135deg, #FFB74D, #FF9800); }
+.exam-card__inner--stage_3  { background: linear-gradient(135deg, #FFF176, #FFEB3B); color:#2C1A20; }
+.exam-card__inner--stage_4  { background: linear-gradient(135deg, #81C784, #4CAF50); }
+.exam-card__inner--unstage  { background: linear-gradient(135deg, #90A4AE, #607D8B); }
+.exam-card__inner--dti      { background: linear-gradient(135deg, #CE93D8, #9C27B0); }
+
+/* 考试卡片选中态 */
+.exam-card--selected .exam-card__inner {
+  box-shadow: 0 0 0 3px #D4A843, 0 0 15px rgba(212, 168, 67, 0.45);
+}
+
+/* 已消除 */
+.exam-card--matched {
+  pointer-events: none;
+}
+.exam-card--matched .exam-card__inner {
+  opacity: 0.08;
+  transform: scale(0.85);
+}
+
+/* 错误抖动 */
+.exam-card--shake .exam-card__inner {
+  animation: cardShake 0.45s ease;
+}
+
+.exam-card__desc {
+  font-size: 10px;
+  opacity: 0.8;
+  text-align: center;
+  padding: 0 4px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+}
+
+/* ==================== ③ 考试解析报告结算页 ==================== */
+
+.exam-report {
+  max-width: 760px;
+  margin: 20px auto 40px;
+}
+
+.exam-report__header {
+  text-align: center;
+  padding: 36px 24px 20px;
+  background: linear-gradient(135deg, #5A1B28, #7B2D3B);
+  border-radius: 16px 16px 0 0;
+  color: #fff;
+}
+.exam-report__icon {
+  font-size: 52px;
+  margin-bottom: 6px;
+}
+.exam-report__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.exam-report__subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.exam-report__body {
+  background: #fff;
+  border-radius: 0 0 16px 16px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* 总分卡片 */
+.exam-report__total-score {
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #F9F2F4, #FFF8E1);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.exam-report__total-score-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #D4A843;
+}
+.exam-report__total-score-label {
+  font-size: 13px;
+  color: #7A6A72;
+}
+
+/* 三套题各自正确率 */
+.exam-report__sets {
+  margin-bottom: 20px;
+}
+.exam-report__section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5A1B28;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #F5F0F2;
+}
+.exam-set-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #FAFAFA;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+.exam-set-result__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2C1A20;
+}
+.exam-set-result__stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: #5A4A52;
+}
+.exam-set-result__accuracy {
+  font-weight: 700;
+  font-size: 15px;
+}
+.exam-set-result__accuracy--high { color: #2D8B4E; }
+.exam-set-result__accuracy--mid  { color: #C7902A; }
+.exam-set-result__accuracy--low  { color: #C0392B; }
+.exam-set-result--forfeit {
+  opacity: 0.5;
+}
+
+/* 高频混淆分期 TOP5 */
+.exam-confusion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.exam-confusion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #FFF8F6;
+  border: 1px solid #F5E0D8;
+  border-radius: 8px;
+}
+.exam-confusion-item__rank {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #7B2D3B;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.exam-confusion-item__rank--gold { background: #D4A843; }
+.exam-confusion-item__info {
+  flex: 1;
+  font-size: 13px;
+  color: #5A4A52;
+}
+.exam-confusion-item__count {
+  font-weight: 700;
+  color: #C0392B;
+  font-size: 14px;
+}
+
+/* 结算操作区 */
+.exam-report__actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px 0 10px;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+}
+
+/* ==================== ④ 弹窗 ==================== */
+
+/* 未达标弹窗 */
+.exam-blocked-modal__icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+.exam-blocked-modal__text {
+  font-size: 15px;
+  color: #2C1A20;
+  margin-bottom: 6px;
+}
+.exam-blocked-modal__hint {
+  font-size: 13px;
+  color: #7A6A72;
+  line-height: 1.6;
+}
+
+/* 退出确认弹窗 */
+.exam-quit-confirm__icon {
+  font-size: 48px;
+  color: #C0392B;
+  margin-bottom: 8px;
+}
+.exam-quit-confirm__text {
+  font-size: 15px;
+  color: #2C1A20;
+  line-height: 1.6;
+}
+
+/* 超时弹窗 */
+.exam-timeout__icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
